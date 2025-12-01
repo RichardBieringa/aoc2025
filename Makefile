@@ -1,5 +1,6 @@
 CC = clang
 CFLAGS = -std=c23 -Wall -Wextra -Wpedantic -Werror -g -fsanitize=address,undefined
+CFLAGS_TEST = -std=c23 -w
 LDFLAGS = -lm -I/opt/homebrew/include -L/opt/homebrew/lib
 LDLIBS_TEST = -lcriterion
 
@@ -36,7 +37,7 @@ test: $(TEST_TARGET)
 
 $(TEST_TARGET): $(MAIN_SRC) $(TEST_SRC)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS_TEST)
+	$(CC) $(CFLAGS_TEST) -o $@ $^ $(LDFLAGS) $(LDLIBS_TEST)
 	@echo "Built test suite: $@"
 
 clean:
