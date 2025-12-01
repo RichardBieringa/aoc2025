@@ -1,6 +1,6 @@
 CC = clang
 CFLAGS = -std=c23 -Wall -Wextra -Wpedantic -Werror -g -fsanitize=address,undefined
-LDFLAGS = -lm
+LDFLAGS = -lm -I/opt/homebrew/include -L/opt/homebrew/lib
 LDLIBS_TEST = -lcriterion
 
 SRC_DIR = src
