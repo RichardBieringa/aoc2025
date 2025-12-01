@@ -1,4 +1,8 @@
+# Custom
+/bin
+
 # Prerequisites
+
 *.d
 
 # Object files
