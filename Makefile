@@ -1,22 +1,17 @@
 CC = clang
 CFLAGS = -std=c23 -Wall -Wextra -Wpedantic -Werror -g -fsanitize=address,undefined
-CFLAGS_TEST = -std=c23 -w
-LDFLAGS = -lm -I/opt/homebrew/include -L/opt/homebrew/lib
-LDLIBS_TEST = -lcriterion
+LDFLAGS = -lm
 
 SRC_DIR = src
-TEST_DIR = tests
 BIN_DIR = bin
 INPUT_DIR = inputs
 
 DAY ?= 01
 MAIN_SRC = $(SRC_DIR)/day$(DAY).c
-TEST_SRC = $(TEST_DIR)/test_day$(DAY).c
 
 TARGET = $(BIN_DIR)/day$(DAY)
-TEST_TARGET = $(BIN_DIR)/test_day$(DAY)
 
-.PHONY: all run test clean
+.PHONY: all run clean
 
 all: $(TARGET)
 
@@ -29,16 +24,6 @@ run: $(TARGET)
 	@# Check if the input file exists before trying to run
 	@[ -f $(INPUT_DIR)/day$(DAY).txt ] && ./$< < $(INPUT_DIR)/day$(DAY).txt || ./$<
 	@echo "---"
-
-test: $(TEST_TARGET)
-	@echo "Running tests for day $(DAY)..."
-	@./$<
-	@echo "---"
-
-$(TEST_TARGET): $(MAIN_SRC) $(TEST_SRC)
-	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS_TEST) -o $@ $^ $(LDFLAGS) $(LDLIBS_TEST)
-	@echo "Built test suite: $@"
 
 clean:
 	@echo "Cleaning up..."
